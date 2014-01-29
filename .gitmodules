@@ -1,0 +1,3 @@
+[submodule "js/vendor/valence-sdk-javascript"]
+	path = js/vendor/valence-sdk-javascript
+	url = https://github.com/Desire2Learn-Valence/valence-sdk-javascript.git
