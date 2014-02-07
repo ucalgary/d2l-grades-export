@@ -66,7 +66,7 @@
 			success: successHandler,
 			error: errorHandler
 		});
-	}
+	};
 
 	GradesExport.loadGradeItems = function(ev) {
 		var errorHandler = function(xhr, options, error) {
@@ -74,7 +74,6 @@
 		};
 
 		var successHandler = function(data) {
-			// Note: paging is being ignored
 			if (typeof data === 'string') {
 				data = JSON.parse(data);
 			}
@@ -100,12 +99,53 @@
 			success: successHandler,
 			error: errorHandler
 		});
+	};
+
+	GradesExport.loadGradeItemDetails = function(ev) {
+		var errorHandler = function(xhr, options, error) {
+
+		};
+
+		var successHandler = function(data) {
+			if (typeof data === 'string') {
+				data = JSON.parse(data);
+			}
+
+			// Extract the relevant data
+			var gradeItemDetails = {
+				'Grade Type': data['GradeType'],
+				'Description': data['Description']['Text']
+			};
+
+			// Populate the grade item details' names and values
+			var gradeItemDescriptions = $.map(gradeItemDetails, function(val, key) {
+				return '<dt>' + key + '</dt><dd>' + (val ? val : 'None') + '</dd>';
+			}).join('');
+
+			$('#d2l-grade-items + dl')
+				.find('dt, dd')
+				.remove()
+				.end()
+				.append(gradeItemDescriptions);
+		};
+
+		var courseId = $('#d2l-courses').val();
+		var gradeItemId = $(this).val();
+		var url = GradesExport.userContext.createUrlForAuthentication('/d2l/api/le/1.4/' + courseId + '/grades/' + gradeItemId, 'GET');
+
+		$.jsonp({
+			url: url,
+			callbackParameter: 'callback',
+			success: successHandler,
+			error: errorHandler
+		})
 	}
 
 	$(document).ready(function() {
 		// Register for events
 		$(document).on('GEDidAuthenticateUser', GradesExport.loadCourses);
 		$('#d2l-courses').on('change', GradesExport.loadGradeItems);
+		$('#d2l-grade-items').on('change', GradesExport.loadGradeItemDetails);
 
 		// Kick off the app by initializing and authenticating
 		GradesExport.init();
