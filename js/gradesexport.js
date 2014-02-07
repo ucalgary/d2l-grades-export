@@ -11,28 +11,35 @@
 		'userKey': ''
 	};
 
-	GradesExport.init = function(cb) {
+	GradesExport.init = function() {
 		GradesExport.appContext = new D2L.ApplicationContext('localhost', GradesExport.config.appId, GradesExport.config.appKey);
 		GradesExport.userContext = GradesExport.appContext.createUserContext('d2l.ucalgary.ca', 80, window.location.href);
-		
-		if (typeof GradesExport.userContext == 'undefined' ||
-			typeof GradesExport.userContext.userId == 'undefined' ||
-				   GradesExport.userContext.userId == '') {
+	};
+
+	GradesExport.authenticate = function(cb) {
+			if (typeof GradesExport.userContext == 'undefined' ||
+		      typeof GradesExport.userContext.userId == 'undefined' ||
+		             GradesExport.userContext.userId == '') {
 			// If there is no active user, begin the authentication process
 			var callback = window.location.href;
 			var url = GradesExport.appContext.createUrlForAuthentication(GradesExport.config.scheme + '://' + GradesExport.config.host, GradesExport.config.port, callback);
 		
 			window.location = url;
 		} else {
-			// If there is an active user, load the user's course sections
-		
-			cb();
+			$.event.trigger("GEDidAuthenticateUser", [GradesExport.userContext.userId]);
 		}
 	};
 
+	GradesExport.loadCourses = function(ev, userId) {
+		console.log('authenticated userId: ' + userId);
+	}
+
 	$(document).ready(function() {
-		GradesExport.init(function() {
-			console.log('userId: ' + GradesExport.userContext.userId);
-		});
+		// Register for events
+		$(document).on("GEDidAuthenticateUser", GradesExport.loadCourses);
+
+		// Kick off the app by initializing and authenticating
+		GradesExport.init();
+		GradesExport.authenticate();
 	});
 }).call(this);
