@@ -145,7 +145,7 @@
 		// Register for events
 		$(document).on('GEDidAuthenticateUser', GradesExport.loadCourses);
 		$('#d2l-courses').on('change', GradesExport.loadGradeItems);
-		$('#d2l-grade-items').on('change', GradesExport.loadGradeItemDetails);
+		// $('#d2l-grade-items').on('change', GradesExport.loadGradeItemDetails);
 
 		// Kick off the app by initializing and authenticating
 		GradesExport.init();
