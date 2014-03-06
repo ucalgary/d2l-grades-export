@@ -139,13 +139,74 @@
 			success: successHandler,
 			error: errorHandler
 		})
-	}
+	};
+
+	GradesExport.downloadGrades = function(ev) {
+		var classlistErrorHandler = function(xhr, options, error) {
+
+		};
+
+		var classlistSuccessHandler = function(data) {
+			if (typeof data === 'string') {
+				data = JSON.parse(data);
+			}
+
+			var data_counter = data.length;
+			var gradesResponseReceived = function() {
+				if (--data_counter == 0) {
+					$.event.trigger('GEDidLoadGradesData', [data]);
+				}
+			}
+
+			var gradesErrorHandler = function(xhr, options, error) {
+				gradesResponseReceived();
+			};
+
+			var gradesSuccessHandler = function(data) {
+				if (typeof data === 'string') {
+					data = JSON.parse(data);
+				}
+
+				this['Grades'] = data;
+				console.log(this['Identifier'] + ' ' + data['DisplayedGrade']);
+
+				gradesResponseReceived();
+			};
+
+			// For each enrolled person, get that student's grade value
+			for (var i = 0; i < data.length; i++) {
+				var person = data[i];
+				var gradesUrl = GradesExport.userContext.createUrlForAuthentication('/d2l/api/le/1.4/' + courseId + '/grades/final/values/' + person['Identifier'], 'GET');
+
+				$.jsonp({
+					url: gradesUrl,
+					callbackParameter: 'callback',
+					context: person,
+					success: gradesSuccessHandler,
+					error: gradesErrorHandler
+				});
+			}
+		};
+
+		var courseId = $('#d2l-courses').val();
+		var classlistUrl = GradesExport.userContext.createUrlForAuthentication('/d2l/api/le/1.4/' + courseId + '/classlist/', 'GET');
+
+		$.event.trigger('GEWillLoadGradesData');
+
+		$.jsonp({
+			url: classlistUrl,
+			callbackParameter: 'callback',
+			success: classlistSuccessHandler,
+			error: classlistErrorHandler
+		});
+	};
 
 	$(document).ready(function() {
 		// Register for events
 		$(document).on('GEDidAuthenticateUser', GradesExport.loadCourses);
 		$('#d2l-courses').on('change', GradesExport.loadGradeItems);
 		// $('#d2l-grade-items').on('change', GradesExport.loadGradeItemDetails);
+		$('#d2l-grades-download').on('click', GradesExport.downloadGrades);
 
 		// Kick off the app by initializing and authenticating
 		GradesExport.init();
