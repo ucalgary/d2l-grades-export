@@ -201,12 +201,23 @@
 		});
 	};
 
+	GradesExport.waitForGrades = function(ev) {
+		$('#d2l-grades-download').attr('disabled', 'disabled');
+	}
+
+	GradesExport.processGrades = function(ev, data) {
+		console.log(data);
+		$('#d2l-grades-download').removeAttr('disabled');
+	};
+
 	$(document).ready(function() {
 		// Register for events
 		$(document).on('GEDidAuthenticateUser', GradesExport.loadCourses);
 		$('#d2l-courses').on('change', GradesExport.loadGradeItems);
 		// $('#d2l-grade-items').on('change', GradesExport.loadGradeItemDetails);
 		$('#d2l-grades-download').on('click', GradesExport.downloadGrades);
+		$(document).on('GEWillLoadGradesData', GradesExport.waitForGrades);
+		$(document).on('GEDidLoadGradesData', GradesExport.processGrades);
 
 		// Kick off the app by initializing and authenticating
 		GradesExport.init();
