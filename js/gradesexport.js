@@ -48,7 +48,7 @@
 
 			// Populate the courses' select options
 			var courseOptions = $.map(courses, function(val, i) {
-				return '<option value="' + val['OrgUnit']['Id'] + '">' + val['OrgUnit']['Name'] + '</option>';
+				return '<option value="' + val['OrgUnit']['Id'] + '" data-code="' + val['OrgUnit']['Code'] + '">' + val['OrgUnit']['Name'] + '</option>';
 			}).join('');
 
 			$('#d2l-courses')
