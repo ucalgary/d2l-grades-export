@@ -204,6 +204,35 @@
 	}
 
 	GradesExport.processGrades = function(ev, data) {
+		var course_code = $('#d2l-courses').find(':selected').attr('data-code');
+		var course_code_components = course_code.match(/([WPSF])(\d{4})(\w{4})(\d*)([AB]?)([LSBT])(\d{2})/);
+
+		// If the course type is lecture, drop the L.
+		// Lectures are transmitted by number only for PeopleSoft grades.
+		if (course_code_components[6] == 'L') {
+			course_code_components[6] = '';
+		}
+
+		// If the course number has a letter suffix of A, change it to B.
+		// Grades for full year courses are submitted to the B component.
+		if (course_code_components[5] == 'A') {
+			course_code_components[5] = 'B';
+		}
+
+		var course_row = course_code_components[3] + ',' + course_code_components[4] + course_code_components[5] + ',' + course_code_components[6] + course_code_components[7] + ',';
+		var grade_rows = new Array();
+
+		for (var i = 0; i < data.length; i++) {
+			var person = data[i];
+			if (!('Grades' in person)) {
+				continue;
+			}
+
+			grade_rows.push(person['OrgDefinedId'] + ',' + person['Grades']['DisplayedGrade'] + ',');
+		}
+
+		var grades_data = course_row + '\n' + grade_rows.join('\n');
+
 		$('#d2l-grades-download, #d2l-courses, #d2l-grade-items').removeAttr('disabled');
 	};
 
