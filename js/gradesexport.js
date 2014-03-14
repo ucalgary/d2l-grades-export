@@ -48,6 +48,10 @@
 		if (key != null && GradesExport.gradesSpecifier[key] != val) {
 			GradesExport.gradesSpecifier[key] = val;
 
+			if (key == 'orgUnitId') {
+				GradesExport.gradesSpecifier['gradeObjectId'] = 'final';
+			}
+
 			$.event.trigger('GEDidChangeGradesSpecifier');
 		}
 	};
