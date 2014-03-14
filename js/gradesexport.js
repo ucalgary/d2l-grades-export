@@ -40,6 +40,18 @@
 		}
 	};
 
+	GradesExport.updateGradesSpecifier = function(ev) {
+		var target = $(ev.target);
+		var key = target.attr('data-specifier-key');
+		var val = target.val();
+
+		if (key != null && GradesExport.gradesSpecifier[key] != val) {
+			GradesExport.gradesSpecifier[key] = val;
+
+			$.event.trigger('GEDidChangeGradesSpecifier');
+		}
+	};
+
 	GradesExport.loadCourses = function(ev, userId) {
 		var errorHandler = function(xhr, options, error) {
 
@@ -263,6 +275,10 @@
 	$(document).ready(function() {
 		// Register for events
 		$(document).on('GEDidAuthenticateUser', GradesExport.loadCourses);
+		
+		$('#d2l-courses').on('change', GradesExport.updateGradesSpecifier);
+		$('#d2l-grade-items').on('change', GradesExport.updateGradesSpecifier);
+
 		$('#d2l-courses').on('change', GradesExport.loadGradeItems);
 		// $('#d2l-grade-items').on('change', GradesExport.loadGradeItemDetails);
 		$('#d2l-grades-download').on('click', GradesExport.downloadGrades);
