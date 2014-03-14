@@ -11,6 +11,16 @@
 		'userKey': ''
 	};
 
+	GradesExport.gradesSpecifier = {
+		orgUnitId: null,
+		gradeObjectId: 'final'
+	};
+
+	GradesExport.gradesData = {
+		orgUnitComponents: null,
+		gradesBlob: null
+	};
+
 	GradesExport.init = function() {
 		this.appContext = new D2L.ApplicationContext('localhost', GradesExport.config.appId, GradesExport.config.appKey);
 		this.userContext = GradesExport.appContext.createUserContext(this.config.scheme + '://' + this.config.host, 443, window.location.href);
