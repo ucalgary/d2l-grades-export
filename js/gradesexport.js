@@ -100,6 +100,11 @@
 				data = JSON.parse(data);
 			}
 
+			data.push({
+				'Name': 'Final Grade',
+				'Id': 'final'
+			});
+
 			// Populate the grade items' select options
 			var gradeItemOptions = $.map(data, function(val, i) {
 				return '<option value="' + val['Id'] + '">' + val['Name'] + '</option>';
