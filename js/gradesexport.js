@@ -272,6 +272,8 @@
 
 		var grades_data = course_row + '\n' + grade_rows.join('\n');
 
+		console.log(grades_data);
+
 		// Determine how to present the grades data as a download for the user
 		var anchor_e = document.createElement('a');
 		if (typeof (Blob) != 'undefined' && typeof(anchor_e.download) != 'undefined') {
@@ -280,10 +282,12 @@
 			var grades_blob = new Blob([grades_data], {type:'text/csv'});
 			anchor_e.download = course_code + '.txt';
 			anchor_e.href = window.URL.createObjectURL(grades_blob);
-			anchor_e.textContent = course_code;
+			anchor_e.textContent = 'Download ' + course_code;
 			anchor_e.style = 'display:none';
 
-			$('body').append(anchor_e);
+			$('#d2l-grades-download')
+				.empty()
+				.append(anchor_e);
 		}
 
 		$('#d2l-grades-download, #d2l-courses, #d2l-grade-items').removeAttr('disabled');
