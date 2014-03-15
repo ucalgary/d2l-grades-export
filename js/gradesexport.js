@@ -247,7 +247,7 @@
 	}
 
 	GradesExport.processGrades = function(ev, data) {
-		var course_code = $('#d2l-courses').find(':selected').attr('data-code');
+		var course_code = GradesExport.gradesSpecifier['courseCode'];
 		var course_code_components = course_code.match(/([WPSF])(\d{4})(\w{4})(\d*)([AB]?)([LSBT])(\d{2})/);
 
 		// If the course type is lecture, drop the L.
