@@ -18,6 +18,7 @@
 
 	GradesExport.gradesData = {
 		orgUnitComponents: null,
+		gradesData: null,
 		gradesBlob: null
 	};
 
@@ -172,7 +173,12 @@
 		})
 	};
 
-	GradesExport.downloadGrades = function(ev) {
+	GradesExport.loadSpecifiedGradeItem = function(ev) {
+		var specifier = GradesExport.gradesSpecifier;
+		if (specifier.orgUnitId == null || specifier.gradeObjectId == null) {
+			return;
+		}
+
 		var classlistErrorHandler = function(xhr, options, error) {
 
 		};
@@ -185,7 +191,9 @@
 			var data_counter = data.length;
 			var gradesResponseReceived = function() {
 				if (--data_counter == 0) {
-					$.event.trigger('GEDidLoadGradesData', [data]);
+					GradesExport.gradesData.gradesData = data;
+
+					$.event.trigger('GEDidLoadGradesData', [GradesExport.gradesData.gradesData]);
 				}
 			}
 
@@ -217,7 +225,7 @@
 			}
 		};
 
-		var courseId = $('#d2l-courses').val();
+		var courseId = specifier.orgUnitId;
 		var classlistUrl = GradesExport.userContext.createUrlForAuthentication('/d2l/api/le/1.4/' + courseId + '/classlist/', 'GET');
 
 		$.event.trigger('GEWillLoadGradesData');
@@ -289,8 +297,8 @@
 		$('#d2l-grade-items').on('change', GradesExport.updateGradesSpecifier);
 
 		$('#d2l-courses').on('change', GradesExport.loadGradeItems);
+		$(document).on('GEDidChangeGradesSpecifier', GradesExport.loadSpecifiedGradeItem);
 		// $('#d2l-grade-items').on('change', GradesExport.loadGradeItemDetails);
-		$('#d2l-grades-download').on('click', GradesExport.downloadGrades);
 		$(document).on('GEWillLoadGradesData', GradesExport.waitForGrades);
 		$(document).on('GEDidLoadGradesData', GradesExport.processGrades);
 
