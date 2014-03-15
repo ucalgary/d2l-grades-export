@@ -248,7 +248,7 @@
 	};
 
 	GradesExport.waitForGrades = function(ev) {
-		$('#d2l-grades-download, #d2l-courses, #d2l-grade-items').attr('disabled', 'disabled');
+		$('#d2l-courses, #d2l-grade-items').attr('disabled', 'disabled');
 	}
 
 	GradesExport.processGrades = function(ev, data) {
@@ -297,7 +297,7 @@
 				.append(anchor_e);
 		}
 
-		$('#d2l-grades-download, #d2l-courses, #d2l-grade-items').removeAttr('disabled');
+		$('#d2l-courses, #d2l-grade-items').removeAttr('disabled');
 	};
 
 	$(document).ready(function() {
