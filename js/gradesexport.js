@@ -13,6 +13,7 @@
 
 	GradesExport.gradesSpecifier = {
 		orgUnitId: null,
+		courseCode: null,
 		gradeObjectId: 'final'
 	};
 
@@ -51,7 +52,10 @@
 
 			if (key == 'orgUnitId') {
 				GradesExport.gradesSpecifier['gradeObjectId'] = 'final';
+				GradesExport.gradesSpecifier['courseCode'] = target.find(':selected').attr('data-code');
 			}
+
+			console.log(GradesExport.gradesSpecifier);
 
 			$.event.trigger('GEDidChangeGradesSpecifier');
 		}
