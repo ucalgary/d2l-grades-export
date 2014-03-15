@@ -14,7 +14,8 @@
 	GradesExport.gradesSpecifier = {
 		orgUnitId: null,
 		courseCode: null,
-		gradeObjectId: 'final'
+		gradeObjectId: 'final',
+		gradeObjectLabel: 'Final Grade'
 	};
 
 	GradesExport.gradesData = {
@@ -53,6 +54,10 @@
 			if (key == 'orgUnitId') {
 				GradesExport.gradesSpecifier['gradeObjectId'] = 'final';
 				GradesExport.gradesSpecifier['courseCode'] = target.find(':selected').attr('data-code');
+			}
+
+			if (key == 'gradeObjectId') {
+				GradesExport.gradesSpecifier['gradeObjectLabel'] = target.find(':selected').text();
 			}
 
 			console.log(GradesExport.gradesSpecifier);
@@ -276,17 +281,15 @@
 
 		var grades_data = course_row + '\n' + grade_rows.join('\n');
 
-		console.log(grades_data);
-
 		// Determine how to present the grades data as a download for the user
 		var anchor_e = document.createElement('a');
 		if (typeof (Blob) != 'undefined' && typeof(anchor_e.download) != 'undefined') {
 			// This browser supports Blob objects and the download attribute.
 			// Encapsulate grades_data in a Blob, create an download anchor for it, then simulate a click
 			var grades_blob = new Blob([grades_data], {type:'text/csv'});
-			anchor_e.download = course_code + '.txt';
+			anchor_e.download = course_code + ' ' + GradesExport.gradesSpecifier['gradeObjectLabel'] + '.txt';
 			anchor_e.href = window.URL.createObjectURL(grades_blob);
-			anchor_e.textContent = 'Download ' + course_code;
+			anchor_e.textContent = 'Download ' + anchor_e.download;
 			anchor_e.style = 'display:none';
 
 			$('#d2l-grades-download')
