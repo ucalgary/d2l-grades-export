@@ -1,4 +1,4 @@
-(function() {
+(function($) {
 	var GradesExport = GradesExport || {};
 	
 	GradesExport.config = {
@@ -326,4 +326,4 @@
 		GradesExport.init();
 		GradesExport.authenticate();
 	});
-}).call(this);
+}).call(this, jQuery);
