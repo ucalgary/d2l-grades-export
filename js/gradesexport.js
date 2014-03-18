@@ -60,8 +60,6 @@
 				GradesExport.gradesSpecifier['gradeObjectLabel'] = target.find(':selected').text();
 			}
 
-			console.log(GradesExport.gradesSpecifier);
-
 			$.event.trigger('GEDidChangeGradesSpecifier');
 		}
 	};
@@ -309,7 +307,7 @@
 		$('#d2l-courses, #d2l-grade-items').removeAttr('disabled');
 	};
 
-	$(document).ready(function() {
+	var init = function(context, settings) {
 		// Register for events
 		$(document).on('GEDidAuthenticateUser', GradesExport.loadCourses);
 		
@@ -325,5 +323,14 @@
 		// Kick off the app by initializing and authenticating
 		GradesExport.init();
 		GradesExport.authenticate();
-	});
+	}
+
+	if (typeof(Drupal) != 'undefined' && typeof(Drupal.behaviors) != 'undefined') {
+		Drupal.behaviors.gradesExportApp = {
+			attach: init
+		}
+	} else {
+		$(document).ready(init);
+	}
+	
 }).call(this, jQuery);
