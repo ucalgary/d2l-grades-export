@@ -3,23 +3,12 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>Desire2Learn Grades Export Tool</title>
 	<meta name="description" content="This tool allows instructors to export final grades from Desire2Learn course sections to load into PeopleSoft.">
 	<meta name="viewport" content="width=device-width">
 	
+	<title>Desire2Learn Grades Export Tool</title>
+
 	<link rel="stylesheet" href="http://static.ucalgary.ca/current/drupal/styles/level-d.css">
-	<!--[if lte IE 7]>
-	<link type="text/css" rel="stylesheet" href="http://static.ucalgary.ca/current/global/styles/ie/ie6.css" media="all" />
-	<![endif]-->
-
-	<!--[if IE 7]>
-	<link type="text/css" rel="stylesheet" href="http://static.ucalgary.ca/current/global/styles/ie/ie7.css" media="all" />
-	<![endif]-->
-
-	<!--[if IE 8]>
-	<link type="text/css" rel="stylesheet" href="http://static.ucalgary.ca/current/global/styles/ie/ie8.css" media="all" />
-	<![endif]-->
-
 	<style>
 		#d2l-grade-items { display: none; }
 		#d2l-grade-items, #d2l-courses { min-width: 320px; }
@@ -27,84 +16,6 @@
 </head>
 <body>
 <div class="uc-page uc-980 uofc_d uc-level-1">
-<div id="uc-header" class="uc-section header">
-	<div class="identity">University of Calgary</div>
-
-	<ul class="social-media">
-		<li class="first rss"><a href="http://contacts.ucalgary.ca/directory/socialmedia/rss" title="RSS">RSS</a></li>
-		<li class="facebook"><a href="http://contacts.ucalgary.ca/directory/socialmedia/facebook" title="Facebook">Facebook</a></li>
-		<li class="twitter"><a href="http://contacts.ucalgary.ca/directory/socialmedia/twitter" title="Twitter">Twitter</a></li>
-	</ul>
-
-	<ul class="access">
-		<li><a href="#uc-splash">Jump to Headline</a></li>
-		<li><a href="#uc-navigation">Jump to Navigation</a></li>
-		<li><a href="#uc-content">Jump to Content</a></li>
-	</ul>
-	
-	<div class="access">UofC Navigation</div>
-
-	<ul id="uc-global-navigation">
-		<li class="first"><a href="http://www.ucalgary.ca/">Home</a></li>
-		<li><a href="http://www.ucalgary.ca/prospectivestudents/">Prospective Students</a></li>
-		<li><a href="http://www.ucalgary.ca/currentstudents/">Current Students</a></li>
-		<li><a href="http://www.ucalgary.ca/alumni/">Alumni</a></li>
-		<li><a href="http://www.ucalgary.ca/community/">Community</a></li>
-		<li><a href="http://www.ucalgary.ca/facultyandstaff/">Faculty &amp; Staff</a></li>
-		 
-	</ul>
-
-	<form id="uc-global-search" action="http://www.ucalgary.ca/search.html">
-		<div>
-			<label for="uc-global-search-field">Search UofC:</label>
-			<input type="hidden" name="cx" value="012951140265856679432:ng6igooyyai" />
-			<input type="hidden" name="cof" value="FORID:10" />
-			<input type="hidden" name="ie" value="UTF-8" />
-			<input type="text" id="uc-global-search-field" name="q" />
-			<input type="submit" name="sa" id="uc-global-search-submit" value="Search" />
-		</div>
-	</form>
-
-	<ul id="uc-global-references">
-		<li class="first"><a href="http://www.ucalgary.ca/it/" title="Information Technologies">IT</a></li>
-		<li><a href="http://www.ucalgary.ca/hr/" title="HR">HR</a></li>
-		<li><a href="http://my.ucalgary.ca/" title="My UofC Portal"> My U of C</a></li>
-		<li><a href="http://www.ucalgary.ca/directory/" title="Contact Information and Personnel Directory">Contacts</a></li>
-	</ul>
-</div>
-<div id="uc-splash" class="uc-section splash">
-	<div class="logo">
-		<a href="http://www.ucalgary.ca/"><img src="http://static.ucalgary.ca/current/global/images/identity/vertical-crest.svg" alt=""></a>
-	</div>
-	<div class="banner">
-		<div class="headline">
-			<div class="title">Desire2Learn Grades Export Tool</div>
-		</div>
-		<img width="794" height="178" src="http://elearn.ucalgary.ca/desire2learn/files/desire2learn/banners/s-life_04_april_b_edited_0021.jpg?1471117322" alt="Desire2Learn" title="Desire2Learn" />
-	</div>
-</div>
-<div id="uc-navigation" class="uc-section navigation">
-	<div class="access">Navigation</div>
-
-	<div class="primary">
-		<ul class="links">
-			<li class="menu-856 active-trail first active"><a href="/desire2learn/home-0" class="active-trail active">Home</a></li>
-			<li class="menu-870 last"><a href="/desire2learn/policy">Policy</a></li>
-		</ul>
-	</div>
-
-	<div class="secondary">
-		<ul class="menu">
-			<li class="first leaf"><a href="http://www.ucalgary.ca/it/forms/d2l/create" title="">Request a Course</a></li>
-			<li class="leaf"><a href="http://tlc.ucalgary.ca/workshops" title="">Register for Training</a></li>
-			<li class="leaf"><a href="/desire2learn/home/maintenance-windows">Maintenance Windows</a></li>
-			<li class="leaf"><a href="http://library.ucalgary.ca/copyright" title="">Copyright Information</a></li>
-			<li class="leaf"><a href="http://elearning.ucalgary.ca/tophat" title="">TopHat</a></li>
-			<li class="leaf"><a href="/desire2learn/home/tips-trainers">Tips from the Trainers</a></li>
-			<li class="last leaf"><a href="/desire2learn/d2l_extra_info">Getting Started</a></li>
-		</ul>	
-	</div>
-</div>
 <div id="uc-content" class="uc-section content">
 	<div class="primary"><div class="wrapper">
 		<h1>Desire2Learn Grades Export</h1>
