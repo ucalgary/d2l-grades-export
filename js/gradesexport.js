@@ -222,7 +222,7 @@
 		}
 
 		var classlistErrorHandler = function(xhr, options, error) {
-
+			
 		};
 
 		var classlistSuccessHandler = function(data) {
@@ -288,22 +288,30 @@
 	GradesExport.processGrades = function(ev, data) {
 		var course_code = GradesExport.gradesSpecifier['courseCode'];
 		var course_code_components = course_code.match(/([WPSF])(\d{4})(\w{4})(\d*)([AB]?)([LSBT])(\d{2})/);
-
-		// If the course type is lecture, drop the L.
-		// Lectures are transmitted by number only for PeopleSoft grades.
-		if (course_code_components[6] == 'L') {
-			course_code_components[6] = '';
-		}
-
-		// If the course number has a letter suffix of A, change it to B.
-		// Grades for full year courses are submitted to the B component.
-		if (course_code_components[5] == 'A') {
-			course_code_components[5] = 'B';
-		}
-
-		var course_row = course_code_components[3] + ',' + course_code_components[4] + course_code_components[5] + ',' + course_code_components[6] + course_code_components[7] + ',';
+		var course_row = null;
 		var grade_rows = new Array();
 
+		if (course_code_components != null) {
+			// If the course type is lecture, drop the L.
+			// Lectures are transmitted by number only for PeopleSoft grades.
+			if (course_code_components[6] == 'L') {
+				course_code_components[6] = '';
+			}
+
+			// If the course number has a letter suffix of A, change it to B.
+			// Grades for full year courses are submitted to the B component.
+			if (course_code_components[5] == 'A') {
+				course_code_components[5] = 'B';
+			}
+
+			course_row = course_code_components[3] + ',' + course_code_components[4] + course_code_components[5] + ',' + course_code_components[6] + course_code_components[7] + ',';
+		} else {
+			// If course_code could not be parsed into components,
+			// use the entire course code as the subject
+			// and 0 for the course number and section values.
+			course_row = course_code + ',0,0,';
+		}
+		
 		for (var i = 0; i < data.length; i++) {
 			var person = data[i];
 			if (!('Grades' in person)) {
