@@ -222,7 +222,12 @@
 		}
 
 		var classlistErrorHandler = function(xhr, options, error) {
-			
+			$('#d2l-step-select .error')
+				.empty()
+				.text('An error occurred fetching information for the selected course. You might lack permissions to read class or grade information.');
+
+			$('#d2l-courses, #d2l-grade-items').removeAttr('disabled');
+			$(document.body).removeClass('d2l-wait-download');
 		};
 
 		var classlistSuccessHandler = function(data) {
@@ -348,6 +353,7 @@
 				.val(grades_data);
 		}
 
+		$('#d2l-step-select .error').empty()
 		$('#d2l-courses, #d2l-grade-items').removeAttr('disabled');
 		$(document.body).removeClass('d2l-wait-download');
 	};
