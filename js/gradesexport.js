@@ -26,7 +26,7 @@
 
 	GradesExport.init = function() {
 		if (typeof(GradesExport.config) == 'string') {
-			GradesExport.config = JSON.parse(CryptoJS.AES.decrypt(GradesExport.config, document.URL.split('?')[0]));
+			GradesExport.config = JSON.parse(CryptoJS.AES.decrypt(GradesExport.config, document.URL.split('?')[0]).toString(CryptoJS.enc.Utf8));
 		}
 		this.appContext = new D2L.ApplicationContext('localhost', GradesExport.config.appId, GradesExport.config.appKey);
 		this.userContext = GradesExport.appContext.createUserContext(this.config.scheme + '://' + this.config.host, 443, window.location.href);
