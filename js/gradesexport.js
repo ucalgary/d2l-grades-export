@@ -3,10 +3,10 @@
 	
 	GradesExport.config = {
 		'scheme': 'https',
-		'host': 'd2l-test1.ucalgary.ca',
+		'host': 'lms.valence.desire2learn.com',
 		'port': '443',
-		'appId': 'LpVOEjqKg1279EaEXDGhkA',
-		'appKey': 'OhjdRsrweiKhPIAZPH0GFA',
+		'appId': 'G9nUpvbZQyiPrk3um2YAkQ',
+		'appKey': 'ybZu7fm_JKJTFwKEHfoZ7Q',
 		'userId': '',
 		'userKey': ''
 	};
