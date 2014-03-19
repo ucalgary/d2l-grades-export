@@ -25,6 +25,9 @@
 	};
 
 	GradesExport.init = function() {
+		if (typeof(GradesExport.config) == 'string') {
+			GradesExport.config = CryptoJS.AES.decrypt(GradesExport.config, window.URL.split('?')[0]);
+		}
 		this.appContext = new D2L.ApplicationContext('localhost', GradesExport.config.appId, GradesExport.config.appKey);
 		this.userContext = GradesExport.appContext.createUserContext(this.config.scheme + '://' + this.config.host, 443, window.location.href);
 	};
