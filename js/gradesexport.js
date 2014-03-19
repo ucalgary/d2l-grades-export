@@ -314,7 +314,7 @@
 		}
 
 		var grades_data = course_row + '\n' + grade_rows.join('\n');
-		var filename = course_code + ' ' + GradesExport.gradesSpecifier['gradeObjectLabel'] + '.txt';
+		var filename = course_code + ' ' + GradesExport.gradesSpecifier['gradeObjectLabel'] + '.csv';
 
 		// Determine how to present the grades data as a download for the user
 		var anchor_e = document.createElement('a');
