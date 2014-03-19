@@ -12,6 +12,10 @@
 	<style>
 		#d2l-grade-items { display: none; }
 		#d2l-grade-items, #d2l-courses { min-width: 320px; }
+		#d2l-steps h2 { position: relative; }
+		#d2l-steps .spinner { position: relative; display: none; top: 7px; margin-left: 14px; }
+		.d2l-wait-select #d2l-step-select .spinner,
+		.d2l-wait-download #d2l-step-download .spinner { display: inline-block; }
 	</style>
 </head>
 <body>
@@ -52,6 +56,7 @@
 <script src="js/vendor/valence-sdk-javascript/lib/valence.js"></script>
 <script src="js/vendor/valence-sdk-javascript/lib/sha.js"></script>
 <script src="js/vendor/jquery.jsonp-2.4.0.min.js"></script>
+<script src="http://fgnass.github.io/spin.js/spin.min.js"></script>
 <script src="js/gradesexport.js"></script>
 </body>
 </html>

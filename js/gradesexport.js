@@ -30,6 +30,30 @@
 		}
 		this.appContext = new D2L.ApplicationContext('localhost', GradesExport.config.appId, GradesExport.config.appKey);
 		this.userContext = GradesExport.appContext.createUserContext(this.config.scheme + '://' + this.config.host, 443, window.location.href);
+
+		var spinnerOpts = {
+			lines: 9, // The number of lines to draw
+			length: 4, // The length of each line
+			width: 2, // The line thickness
+			radius: 3, // The radius of the inner circle
+			corners: 1, // Corner roundness (0..1)
+			rotate: 0, // The rotation offset
+			direction: 1, // 1: clockwise, -1: counterclockwise
+			color: '#000', // #rgb or #rrggbb or array of colors
+			speed: 1, // Rounds per second
+			trail: 60, // Afterglow percentage
+			shadow: false, // Whether to render a shadow
+			hwaccel: true, // Whether to use hardware acceleration
+			className: 'spinner', // The CSS class to assign to the spinner
+			zIndex: 2e9, // The z-index (defaults to 2000000000)
+			top: 'auto', // Top position relative to parent in px
+			left: 'auto' // Left position relative to parent in px
+		};
+		$('#d2l-steps h2').each(function(idx, val) {
+			var spinner = new Spinner(spinnerOpts).spin();
+			console.log(spinner);
+			$(val).append(spinner.el);
+		});
 	};
 
 	GradesExport.authenticate = function(cb) {
@@ -93,7 +117,11 @@
 				.remove()
 				.end()
 				.append(courseOptions);
+
+			$(document.body).removeClass('d2l-wait-select');
 		};
+
+		$(document.body).addClass('d2l-wait-select');
 
 		var url = GradesExport.userContext.createUrlForAuthentication('/d2l/api/lp/1.4/enrollments/myenrollments/', 'GET');
 
@@ -130,7 +158,11 @@
 				.remove()
 				.end()
 				.append(gradeItemOptions);
+
+			$(document.body).removeClass('d2l-wait-select')
 		};
+
+		$(document.body).addClass('d2l-wait-select');
 
 		var courseId = $(this).val();
 		var url = GradesExport.userContext.createUrlForAuthentication('/d2l/api/le/1.4/' + courseId + '/grades/', 'GET');
@@ -250,6 +282,7 @@
 
 	GradesExport.waitForGrades = function(ev) {
 		$('#d2l-courses, #d2l-grade-items').attr('disabled', 'disabled');
+		$(document.body).addClass('d2l-wait-download');
 	}
 
 	GradesExport.processGrades = function(ev, data) {
@@ -308,6 +341,7 @@
 		}
 
 		$('#d2l-courses, #d2l-grade-items').removeAttr('disabled');
+		$(document.body).removeClass('d2l-wait-download');
 	};
 
 	var init = function(context, settings) {
