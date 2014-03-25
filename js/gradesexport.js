@@ -260,7 +260,7 @@
 			// For each enrolled person, get that student's grade value
 			for (var i = 0; i < data.length; i++) {
 				var person = data[i];
-				var gradesUrl = GradesExport.userContext.createUrlForAuthentication('/d2l/api/le/1.4/' + courseId + '/grades/final/values/' + person['Identifier'], 'GET');
+				var gradesUrl = GradesExport.userContext.createUrlForAuthentication('/d2l/api/le/1.4/' + courseId + '/grades/' + GradesExport.gradesSpecifier['gradeObjectid'] + '/values/' + person['Identifier'], 'GET');
 
 				$.jsonp({
 					url: gradesUrl,
