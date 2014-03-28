@@ -14,50 +14,50 @@ The export tool exists as a single-page, client-side web application that uses t
 
 This method is used to retrieve all the enrollments for the current user, for the user to choose from. In the current implementation, no grouping or filtering options are presented to the user.
 
-        {
-            "PagingInfo": {
-                "Bookmark": "29529",
-                "HasMoreItems": false
-            },
-            "Items": [
-                {
-                    "OrgUnit": {
-                        "Id": 6606,
-                        "Type": {
-                            "Id": 1,
-                            "Code": "Organization",
-                            "Name": "Organization"
-                        },
-                        "Name": "University of Calgary",
-                        "Code": null
+    {
+        "PagingInfo": {
+            "Bookmark": "29529",
+            "HasMoreItems": false
+        },
+        "Items": [
+            {
+                "OrgUnit": {
+                    "Id": 6606,
+                    "Type": {
+                        "Id": 1,
+                        "Code": "Organization",
+                        "Name": "Organization"
                     },
-                    "Access": {
-                        "IsActive": true,
-                        "StartDate": null,
-                        "EndDate": null,
-                        "CanAccess": true
-                    }
+                    "Name": "University of Calgary",
+                    "Code": null
                 },
-                {
-                    "OrgUnit": {
-                        "Id": 99999,
-                        "Type": {
-                            "Id": 3,
-                            "Code": "Course Offering",
-                            "Name": "Course Offering"
-                        },
-                        "Name": "Grades Export Course",
-                        "Code": "GRADES_EXPORT_COURSE"
-                    },
-                    "Access": {
-                        "IsActive": true,
-                        "StartDate": null,
-                        "EndDate": null,
-                        "CanAccess": true
-                    }
+                "Access": {
+                    "IsActive": true,
+                    "StartDate": null,
+                    "EndDate": null,
+                    "CanAccess": true
                 }
-            ]
-        }
+            },
+            {
+                "OrgUnit": {
+                    "Id": 99999,
+                    "Type": {
+                        "Id": 3,
+                        "Code": "Course Offering",
+                        "Name": "Course Offering"
+                    },
+                    "Name": "Grades Export Course",
+                    "Code": "GRADES_EXPORT_COURSE"
+                },
+                "Access": {
+                    "IsActive": true,
+                    "StartDate": null,
+                    "EndDate": null,
+                    "CanAccess": true
+                }
+            }
+        ]
+    }
 
 #### [`GET /d2l/api/le/1.4/(orgUnitId)/grades/`][3]
 
@@ -67,25 +67,25 @@ When the user selects a course offering, the list of grade objects for that cour
 
 There is a select element that allows the user to select a specific grade object to export, but it is hidden using CSS in the current implementation. The final grade is set as the default grade object to export.
 
-        [
-            {
-                "MaxPoints": 50,
-                "CanExceedMaxPoints": false,
-                "IsBonus": false,
-                "ExcludeFromFinalGradeCalculation": false,
-                "GradeSchemeId": null,
-                "Id": 999999,
-                "Name": "Mid-Terms",
-                "ShortName": "",
-                "GradeType": "Numeric",
-                "CategoryId": 0,
-                "Description": {
-                    "Text": "",
-                    "Html": ""
-                },
-                "Weight": 10
-            }
-        ]
+    [
+        {
+            "MaxPoints": 50,
+            "CanExceedMaxPoints": false,
+            "IsBonus": false,
+            "ExcludeFromFinalGradeCalculation": false,
+            "GradeSchemeId": null,
+            "Id": 999999,
+            "Name": "Mid-Terms",
+            "ShortName": "",
+            "GradeType": "Numeric",
+            "CategoryId": 0,
+            "Description": {
+                "Text": "",
+                "Html": ""
+            },
+            "Weight": 10
+        }
+    ]
 
 #### [`GET /d2l/api/le/1.4/(orgUnitId)/classlist/`][2]
 
@@ -93,40 +93,40 @@ There is a select element that allows the user to select a specific grade object
 
 There is no API call for retrieving all the grade values for a given grade object. So, when the export happens, the classlist for the selected course offering is retrieved, then iterated over to retrieve the grade value for each enrolled user.
 
-        [
-            {
-                "Identifier": "99996",
-                "ProfileIdentifier": "aBcDeFgHiJ",
-                "DisplayName": "D'Arcy Norman",
-                "Username": null,
-                "OrgDefinedId": "00000006",
-                "Email": "example1@example.edu"
-            },
-            {
-                "Identifier": "99997",
-                "ProfileIdentifier": "bCdEfGhIjK",
-                "DisplayName": "Ruby Isadora Mok-Kulakova",
-                "Username": null,
-                "OrgDefinedId": "00000007",
-                "Email": "example2@example.edu"
-            },
-            {
-                "Identifier": "99998",
-                "ProfileIdentifier": "cDeFgHiJkL",
-                "DisplayName": "King Chung Huang",
-                "Username": null,
-                "OrgDefinedId": "00000008",
-                "Email": "example3@example.edu"
-            },
-            {
-                "Identifier": "99999",
-                "ProfileIdentifier": "dEfGhIjKlM",
-                "DisplayName": "Lauren Corbett-McGuffin",
-                "Username": null,
-                "OrgDefinedId": "00000009",
-                "Email": "example4@example.edu"
-            }
-        ]
+    [
+        {
+            "Identifier": "99996",
+            "ProfileIdentifier": "aBcDeFgHiJ",
+            "DisplayName": "D'Arcy Norman",
+            "Username": null,
+            "OrgDefinedId": "00000006",
+            "Email": "example1@example.edu"
+        },
+        {
+            "Identifier": "99997",
+            "ProfileIdentifier": "bCdEfGhIjK",
+            "DisplayName": "Ruby Isadora Mok-Kulakova",
+            "Username": null,
+            "OrgDefinedId": "00000007",
+            "Email": "example2@example.edu"
+        },
+        {
+            "Identifier": "99998",
+            "ProfileIdentifier": "cDeFgHiJkL",
+            "DisplayName": "King Chung Huang",
+            "Username": null,
+            "OrgDefinedId": "00000008",
+            "Email": "example3@example.edu"
+        },
+        {
+            "Identifier": "99999",
+            "ProfileIdentifier": "dEfGhIjKlM",
+            "DisplayName": "Lauren Corbett-McGuffin",
+            "Username": null,
+            "OrgDefinedId": "00000009",
+            "Email": "example4@example.edu"
+        }
+    ]
 
 #### [`GET /d2l/api/le/1.4/(orgUnitId)/grades/(gradeObjectId)/values/(userId)`][4]
 
@@ -134,17 +134,17 @@ There is no API call for retrieving all the grade values for a given grade objec
 
 This API call is used inconjunction with the classlist to retrieve the grade value for a specified user and grade object.
 
-        {
-            "PointsNumerator": 36,
-            "PointsDenominator": 50,
-            "WeightedNumerator": null,
-            "WeightedDenominator": null,
-            "GradeObjectIdentifier": "999998",
-            "GradeObjectName": "Final Calculated Grade",
-            "GradeObjectType": 7,
-            "GradeObjectTypeName": null,
-            "DisplayedGrade": "72 %"
-        }
+    {
+        "PointsNumerator": 36,
+        "PointsDenominator": 50,
+        "WeightedNumerator": null,
+        "WeightedDenominator": null,
+        "GradeObjectIdentifier": "999998",
+        "GradeObjectName": "Final Calculated Grade",
+        "GradeObjectType": 7,
+        "GradeObjectTypeName": null,
+        "DisplayedGrade": "72 %"
+    }
 
 [1]: http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-myenrollments-
 [2]: http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-le-(version)-(orgUnitId)-classlist-
@@ -161,15 +161,15 @@ If the client browser supports Blobs and the download attribute on anchor elemen
 
 Support for Blobs and the download attribute is done by checking to see if they are not `undefined`
 
-        var anchor_e = document.createElement('a');
-        if (typeof (Blob) != 'undefined' && typeof(anchor_e.download) != 'undefined') { … }
+    var anchor_e = document.createElement('a');
+    if (typeof (Blob) != 'undefined' && typeof(anchor_e.download) != 'undefined') { … }
 
 A Blob is created with PeopleSoft grades data, then a URL is generated for that blob and used to create a normal anchor element, with the download attribute specified.
 
-        var grades_blob = new Blob([grades_data], {type:'text/csv'});
-        anchor_e.download = filename;
-        anchor_e.href = window.URL.createObjectURL(grades_blob);
-        anchor_e.textContent = 'Download ' + anchor_e.download;
+    var grades_blob = new Blob([grades_data], {type:'text/csv'});
+    anchor_e.download = filename;
+    anchor_e.href = window.URL.createObjectURL(grades_blob);
+    anchor_e.textContent = 'Download ' + anchor_e.download;
 
 When the user clicks on the link, the grades data is downloaded as a file.
 
@@ -179,16 +179,16 @@ For all other browsers, a small bit of code on a web server is used to “bounce
 
 A form with the filename and grades data as hidden input elements is created, with a submit button that initiates the form submission. A custom Drupal module is used that take the incoming grades content and filename, and returns it back to the requestor with a `Content-Disposition: attachment` header to request a file download in the browser.
 
-        var form = '<form method="post" enctype="application/x-www-form-urlencoded">' +
-            '<input type="hidden" name="filename" value="' + filename + '">' +
-            '<input type="hidden" name="content">' +
-            '<input type="submit" value="Download ' + filename + '">' +
-            '</form>';
-        $('#d2l-grades-download')
-            .empty()
-            .append(form)
-            .find('input[name="content"]')
-            .val(grades_data);
+    var form = '<form method="post" enctype="application/x-www-form-urlencoded">' +
+        '<input type="hidden" name="filename" value="' + filename + '">' +
+        '<input type="hidden" name="content">' +
+        '<input type="submit" value="Download ' + filename + '">' +
+        '</form>';
+    $('#d2l-grades-download')
+        .empty()
+        .append(form)
+        .find('input[name="content"]')
+        .val(grades_data);
 
 ## License
 
