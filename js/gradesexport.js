@@ -227,7 +227,7 @@
 				.text('An error occurred fetching information for the selected course. You might lack permissions to read class or grade information.');
 
 			$('#d2l-courses, #d2l-grade-items').removeAttr('disabled');
-			$(document.body).removeClass('d2l-wait-download');
+			$(document.body).removeClass('d2l-wait-download-classlist');
 		};
 
 		var classlistSuccessHandler = function(data) {
@@ -235,9 +235,21 @@
 				data = JSON.parse(data);
 			}
 
+			$('#d2l-step-download progress')
+				.attr('max', data.length)
+				.attr('value', 0);
+			
+			$(document.body).removeClass('d2l-wait-download-classlist');
+			$(document.body).addClass('d2l-wait-download-gradesdata');
+
 			var data_counter = data.length;
 			var gradesResponseReceived = function() {
-				if (--data_counter == 0) {
+				--data_counter;
+				
+				var progress = $('#d2l-step-download progress');
+				progress.attr('value', progress.attr('max') - data_counter);
+
+				if (data_counter == 0) {
 					GradesExport.gradesData.gradesData = data;
 
 					$.event.trigger('GEDidLoadGradesData', [GradesExport.gradesData.gradesData]);
@@ -287,7 +299,7 @@
 
 	GradesExport.waitForGrades = function(ev) {
 		$('#d2l-courses, #d2l-grade-items').attr('disabled', 'disabled');
-		$(document.body).addClass('d2l-wait-download');
+		$(document.body).addClass('d2l-wait-download-classlist');
 	}
 
 	GradesExport.processGrades = function(ev, data) {
@@ -361,7 +373,7 @@
 
 		$('#d2l-step-select .error').empty()
 		$('#d2l-courses, #d2l-grade-items').removeAttr('disabled');
-		$(document.body).removeClass('d2l-wait-download');
+		$(document.body).removeClass('d2l-wait-download-gradesdata');
 	};
 
 	var init = function(context, settings) {
