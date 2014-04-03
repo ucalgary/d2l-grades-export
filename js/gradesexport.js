@@ -308,6 +308,13 @@
 		var course_row = null;
 		var grade_rows = new Array();
 
+		if (course_code_components == null && course_code.indexOf('F2013') == 0 {
+			// In the specific case of Fall 2013, if the course code failed to be parsed, it might be
+			// a full year course with an AB suffix on the catalog number. Try specifically filtering
+			// out the B.
+			course_code_components = course_code.match(/([WPSF])(\d{4})(\w{4})(\d*)([A]?)B([LSBT])(\d{2})/);
+		}
+
 		if (course_code_components != null) {
 			// If the course type is lecture, drop the L.
 			// Lectures are transmitted by number only for PeopleSoft grades.
