@@ -1,3 +1,6 @@
 [submodule "js/vendor/valence-sdk-javascript"]
 	path = js/vendor/valence-sdk-javascript
 	url = https://github.com/Desire2Learn-Valence/valence-sdk-javascript.git
+[submodule "js/vendor/html5-progress-polyfill"]
+	path = js/vendor/html5-progress-polyfill
+	url = https://github.com/LeaVerou/HTML5-Progress-polyfill.git
