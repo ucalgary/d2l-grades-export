@@ -303,10 +303,16 @@
 				course_code_components[6] = '';
 			}
 
-			// If the course number has a letter suffix of A, change it to B.
+			// If the course catalog number has a letter suffix of A, change it to B.
 			// Grades for full year courses are submitted to the B component.
 			if (course_code_components[5] == 'A') {
 				course_code_components[5] = 'B';
+			}
+
+			// If the course catalog number is 5 digits long, then it should
+			// be in the format XXX.YY.
+			if (course_code_components[4].length == 5) {
+				course_code_components[4] = course_code_components[4].slice(0, 3) + '.' + course_code_components[4].slice(3);
 			}
 
 			course_row = course_code_components[3] + ',' + course_code_components[4] + course_code_components[5] + ',' + course_code_components[6] + course_code_components[7] + ',';
