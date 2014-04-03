@@ -129,18 +129,52 @@
 				return this['OrgUnit']['Type']['Id'] == 3;
 			});
 
-			// Populate the courses' select options
-			var courseOptions = $.map(courses, function(val, i) {
-				return '<option value="' + val['OrgUnit']['Id'] + '" data-code="' + val['OrgUnit']['Code'] + '">' + val['OrgUnit']['Name'] + '</option>';
-			}).join('');
+			var courses_counter = courses.length;
+			var sectionsResponseReceived = function() {
+				if (--courses_counter == 0) {
+					// Populate the courses' select options
+					var courseOptions = $.map(courses, function(val, i) {
+						return '<option value="' + val['OrgUnit']['Id'] + '" data-code="' + val['OrgUnit']['Code'] + '">' + val['OrgUnit']['Name'] + '</option>';
+					}).join('');
 
-			$('#d2l-courses')
-				.find('option')
-				.remove()
-				.end()
-				.append(courseOptions);
+					$('#d2l-courses')
+						.find('option')
+						.remove()
+						.end()
+						.append(courseOptions);
 
-			$(document.body).removeClass('d2l-wait-select');
+					$(document.body).removeClass('d2l-wait-select');
+				}
+			}
+
+			var sectionsErrorHandler = function(xhr, options, error) {
+				this['Sections'] = [];
+				sectionsResponseReceived();
+			}
+
+			var sectionsSuccessHandler = function(data) {
+				if (typeof data === 'string') {
+					data = JSON.parse(data);
+				}
+
+				this['Sections'] = data;
+				sectionsResponseReceived();
+			}
+
+			for (var i = 0, count = courses.length; i < count; i++) {
+				// For each course, determine if it has multiple section. If it does, present
+				// the course offering as an optgroup, and the sections as the actual options.
+				var course = courses[i];
+				var sectionsUrl = GradesExport.userContext.createUrlForAuthentication('/d2l/api/lp/1.4/' + course['OrgUnit']['Id'] + '/sections/', 'GET');
+
+				$.jsonp({
+					url: sectionsUrl,
+					callbackParameter: 'callback',
+					context: course,
+					success: sectionsSuccessHandler,
+					error: sectionsErrorHandler
+				});
+			}
 		};
 
 		$(document.body).addClass('d2l-wait-select');
