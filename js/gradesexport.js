@@ -66,7 +66,29 @@
 		
 			window.location = url;
 		} else {
-			$.event.trigger('GEDidAuthenticateUser', [GradesExport.userContext.userId]);
+			// Call WhoAmI to get the user's information
+			var errorHandler = function(xhr, options, error) {
+
+			};
+
+			var successHandler = function(data) {
+				// Note: paging is being ignored
+				if (typeof data === 'string') {
+					data = JSON.parse(data);
+				}
+
+				GradesExport.gradesSpecifier['user'] = data;
+				$.event.trigger('GEDidAuthenticateUser', [GradesExport.userContext.userId]);
+			}
+
+			var url = GradesExport.userContext.createUrlForAuthentication('/d2l/api/lp/1.4/users/whoami', 'GET');
+
+			$.jsonp({
+				url: url,
+				callbackParameter: 'callback',
+				success: successHandler,
+				error: errorHandler
+			});
 		}
 	};
 
