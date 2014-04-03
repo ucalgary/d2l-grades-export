@@ -308,7 +308,7 @@
 		var course_row = null;
 		var grade_rows = new Array();
 
-		if (course_code_components == null && course_code.indexOf('F2013') == 0 {
+		if (course_code_components == null && course_code.indexOf('F2013') == 0) {
 			// In the specific case of Fall 2013, if the course code failed to be parsed, it might be
 			// a full year course with an AB suffix on the catalog number. Try specifically filtering
 			// out the B.
