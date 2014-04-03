@@ -9,13 +9,15 @@
 	<title>Desire2Learn Grades Export Tool</title>
 
 	<link rel="stylesheet" href="http://static.ucalgary.ca/current/drupal/styles/level-d.css">
+	<link rel="stylesheet" href="js/vendor/html5-progress-polyfill/progress-polyfill.css">
 	<style>
 		#d2l-grade-items { display: none; }
 		#d2l-grade-items, #d2l-courses { min-width: 320px; }
 		#d2l-steps h2 { position: relative; }
 		#d2l-steps .spinner { position: relative; display: none; top: 7px; margin-left: 14px; }
+		#d2l-steps progress { display: none; }
 		.d2l-wait-select #d2l-step-select .spinner,
-		.d2l-wait-download #d2l-step-download .spinner { display: inline-block; }
+		.d2l-wait-download #d2l-step-download progress { display: inline-block; }
 	</style>
 </head>
 <body>
@@ -39,7 +41,7 @@
 				<p class="error"></p>
 			</li>
 			<li id="d2l-step-download">
-				<h2>Download grades</h2>
+				<h2>Download grades <progress value="22" max="100"></h2>
 				<p>The chosen grade item will be downloaded as a file to your computer.</p>
 				<div id="d2l-grades-download">No course and grade item selected.</div>
 			</li>
@@ -58,6 +60,7 @@
 <script src="js/vendor/valence-sdk-javascript/lib/sha.js"></script>
 <script src="js/vendor/jquery.jsonp-2.4.0.min.js"></script>
 <script src="http://fgnass.github.io/spin.js/spin.min.js"></script>
+<script src="js/vendor/html5-progress-polyfill/progress-polyfill.min.js"></script>
 <script src="js/gradesexport.js"></script>
 </body>
 </html>
