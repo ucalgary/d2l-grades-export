@@ -212,6 +212,16 @@
 				}
 
 				this['Sections'] = data;
+
+				// For each section, if it is already known in orgUnitsById, set that object's
+				// enrollments so that it can be easily accessed later when reading grades.
+				$(data).each(function(i, section) {
+					var sectionId = section['SectionId'];
+					if (sectionId in orgUnitsById) {
+						orgUnitsById[sectionId]['OrgUnit']['Enrollments'] = section['Enrollments'];
+					}
+				});
+
 				sectionsResponseReceived();
 			}
 
