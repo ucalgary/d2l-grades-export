@@ -19,6 +19,10 @@
 		gradeObjectLabel: 'Final Grade'
 	};
 
+	GradesExport.orgData = {
+		orgUnitsById: {}
+	}
+
 	GradesExport.gradesData = {
 		orgUnitComponents: null,
 		gradesData: null,
@@ -136,6 +140,15 @@
 			if (typeof data === 'string') {
 				data = JSON.parse(data);
 			}
+
+			// Store the returned items in GradesExport.orgData. This seems to be the only way
+			// to get section codes, as /d2l/api/lp/1.4/(orgUnitId)/sections/ does not return
+			// section codes.
+			var orgUnitsById = GradesExport.orgData['orgUnitsById'];
+			$(data['Items']).each(function(index, unit) {
+				var id = unit['OrgUnit']['Id'];
+				orgUnitsById[id] = unit;
+			});
 
 			// Find courses by filtering the enrollments in Items where OrgUnit.Type.Id is 3.
 			var courses = $(data['Items']).filter(function() {
