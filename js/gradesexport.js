@@ -13,6 +13,7 @@
 
 	GradesExport.gradesSpecifier = {
 		orgUnitId: null,
+		sectionOrgUnitId: null,
 		courseCode: null,
 		gradeObjectId: 'final',
 		gradeObjectLabel: 'Final Grade'
@@ -101,6 +102,14 @@
 			GradesExport.gradesSpecifier[key] = val;
 
 			if (key == 'orgUnitId') {
+				var courseId = target.find(':selected').attr('data-course-id');
+				if (!!courseId) {
+					GradesExport.gradesSpecifier['sectionOrgUnitId'] = GradesExport.gradesSpecifier[key];
+					GradesExport.gradesSpecifier[key] = courseId;
+
+					console.log(GradesExport.gradesSpecifier);
+				}
+
 				GradesExport.gradesSpecifier['gradeObjectId'] = 'final';
 				GradesExport.gradesSpecifier['courseCode'] = target.find(':selected').attr('data-code');
 			}
