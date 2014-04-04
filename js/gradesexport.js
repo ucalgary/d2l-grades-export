@@ -496,7 +496,6 @@
 			anchor_e.download = filename;
 			anchor_e.href = window.URL.createObjectURL(grades_blob);
 			anchor_e.textContent = 'Download ' + anchor_e.download;
-			anchor_e.style = 'display:none';
 
 			$('#d2l-grades-download')
 				.empty()
