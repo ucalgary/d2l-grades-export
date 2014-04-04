@@ -248,7 +248,7 @@
 
 		$(document.body).addClass('d2l-wait-select');
 
-		var courseId = $(this).val();
+		var courseId = GradesExport.gradesSpecifier['orgUnitId'];
 		var url = GradesExport.userContext.createUrlForAuthentication('/d2l/api/le/1.4/' + courseId + '/grades/', 'GET');
 
 		$.jsonp({
@@ -287,8 +287,8 @@
 				.append(gradeItemDescriptions);
 		};
 
-		var courseId = $('#d2l-courses').val();
-		var gradeItemId = $(this).val();
+		var courseId = GradesExport.gradesSpecifier['orgUnitId'];
+		var gradeItemId = GradesExport.gradesSpecifier['gradeObjectId'];
 		var url = GradesExport.userContext.createUrlForAuthentication('/d2l/api/le/1.4/' + courseId + '/grades/' + gradeItemId, 'GET');
 
 		$.jsonp({
