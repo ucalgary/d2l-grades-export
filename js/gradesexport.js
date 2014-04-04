@@ -355,14 +355,6 @@
 				data = JSON.parse(data);
 			}
 
-			$('#d2l-step-download progress')
-				.attr('max', data.length)
-				.attr('value', 0);
-			
-			$(document.body).removeClass('d2l-wait-download-classlist');
-			$(document.body).addClass('d2l-wait-download-gradesdata');
-
-			var data_counter = data.length;
 			var gradesResponseReceived = function() {
 				--data_counter;
 				
@@ -388,6 +380,27 @@
 				this['Grades'] = data;
 				gradesResponseReceived();
 			};
+
+			// If the selection is a section, not a course offering, filter the enrollments list
+			// to those users that are enrolled in the section, specifically.
+			if (specifier['sectionOrgUnitId'] !== null) {
+				var section = GradesExport.orgData['orgUnitsById'][specifier['sectionOrgUnitId']];
+				var sectionEnrollmentIds = section['OrgUnit']['Enrollments'];
+				var data = $(data).filter(function(idx) {
+					var identifier = parseInt(this['Identifier']);
+					return (sectionEnrollmentIds.indexOf(identifier) != -1);
+				});
+			}
+
+			// Prepare progress indicators
+			$('#d2l-step-download progress')
+				.attr('max', data.length)
+				.attr('value', 0);
+			
+			$(document.body).removeClass('d2l-wait-download-classlist');
+			$(document.body).addClass('d2l-wait-download-gradesdata');
+
+			var data_counter = data.length;
 
 			// For each enrolled person, get that student's grade value
 			for (var i = 0; i < data.length; i++) {
