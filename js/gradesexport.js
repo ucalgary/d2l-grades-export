@@ -135,12 +135,21 @@
 					// Populate the courses' select options
 					var courseOptions = $.map(courses, function(val, i) {
 						if (val['Sections'].length == 0) {
-							return '<option value="' + val['OrgUnit']['Id'] + '" data-code="' + val['OrgUnit']['Code'] + '">' + val['OrgUnit']['Name'] + '</option>';	
+							return '<option value="' + val['OrgUnit']['Id'] 
+							       + '" data-code="' + val['OrgUnit']['Code']
+							       + '">'
+							       + val['OrgUnit']['Name']
+							       + '</option>';	
 						} else {
 							var courseCodeBase = val['OrgUnit']['Code'].substring(0, val['OrgUnit']['Code'].length - 3);
 							var html = '<optgroup label="' + val['OrgUnit']['Name'] + '">';
 							html += $.map(val['Sections'], function(sec, i) {
-								return '<option value="' + sec['SectionId'] + '" data-code="' + courseCodeBase + sec['Name'].substring(sec['Name'].length - 3) + '">' + sec['Name'] + '</option>';
+								return '<option value="' + sec['SectionId']
+								       + '" data-code="' + courseCodeBase + sec['Name'].substring(sec['Name'].length - 3) 
+								       + '" data-course-id="' + val['OrgUnit']['Id']
+								       + '">'
+								       + sec['Name']
+								       + '</option>';
 							}).join('');
 							html += '</optgroup>';
 							return html;
