@@ -155,11 +155,20 @@
 							       + val['OrgUnit']['Name']
 							       + '</option>';	
 						} else {
-							var courseCodeBase = val['OrgUnit']['Code'].substring(0, val['OrgUnit']['Code'].length - 3);
+							var sectionCodeBase = null;
+							if (val['OrgUnit']['Code'].match(GradesExport.courseCodePatterns['normal']) ||
+								  val['OrgUnit']['Code'].match(GradesExport.courseCodePatterns['fall2013FullYear'])) {
+								sectionCodeBase = val['OrgUnit']['Code'].substring(0, val['OrgUnit']['Code'].length - 3);
+							                
+							}
 							var html = '<optgroup label="' + val['OrgUnit']['Name'] + '">';
 							html += $.map(val['Sections'], function(sec, i) {
+								var sectionCode = (sectionCodeBase == null) ?
+								                  val['OrgUnit']['Code'] + ' ' + sec['Name'] :
+								                  sectionCodeBase + sec['Name'].substring(sec['Name'].length - 3);
+
 								return '<option value="' + sec['SectionId']
-								       + '" data-code="' + courseCodeBase + sec['Name'].substring(sec['Name'].length - 3) 
+								       + '" data-code="' + sectionCode
 								       + '" data-course-id="' + val['OrgUnit']['Id']
 								       + '">'
 								       + sec['Name']
