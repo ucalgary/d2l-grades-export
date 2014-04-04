@@ -25,6 +25,11 @@
 		gradesBlob: null
 	};
 
+	GradesExport.courseCodePatterns = {
+		normal: /([WPSF])(\d{4})(\w{4})(\d*)([AB]?)([LSBT])(\d{2})/,
+		fall2013FullYear: /([WPSF])(\d{4})(\w{4})(\d*)([A]?)B([LSBT])(\d{2})/
+	}
+
 	GradesExport.init = function() {
 		if (typeof(GradesExport.config) == 'string') {
 			GradesExport.config = JSON.parse(CryptoJS.AES.decrypt(GradesExport.config, document.URL.split('?')[0]).toString(CryptoJS.enc.Utf8));
@@ -390,7 +395,7 @@
 
 	GradesExport.processGrades = function(ev, data) {
 		var course_code = GradesExport.gradesSpecifier['courseCode'];
-		var course_code_components = course_code.match(/([WPSF])(\d{4})(\w{4})(\d*)([AB]?)([LSBT])(\d{2})/);
+		var course_code_components = course_code.match(GradesExport.courseCodePatterns['normal']);
 		var course_row = null;
 		var grade_rows = new Array();
 
@@ -398,7 +403,7 @@
 			// In the specific case of Fall 2013, if the course code failed to be parsed, it might be
 			// a full year course with an AB suffix on the catalog number. Try specifically filtering
 			// out the B.
-			course_code_components = course_code.match(/([WPSF])(\d{4})(\w{4})(\d*)([A]?)B([LSBT])(\d{2})/);
+			course_code_components = course_code.match(GradesExport.courseCodePatterns['fall2013FullYear']);
 		}
 
 		if (course_code_components != null) {
