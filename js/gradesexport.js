@@ -111,8 +111,8 @@
 				if (!!courseId) {
 					GradesExport.gradesSpecifier['sectionOrgUnitId'] = GradesExport.gradesSpecifier[key];
 					GradesExport.gradesSpecifier[key] = courseId;
-
-					console.log(GradesExport.gradesSpecifier);
+				} else {
+					GradesExport.gradesSpecifier['sectionOrgUnitId'] = null;
 				}
 
 				GradesExport.gradesSpecifier['gradeObjectId'] = 'final';
