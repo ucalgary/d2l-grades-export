@@ -355,8 +355,6 @@
 				data = JSON.parse(data);
 			}
 
-			data = data['Items'];
-
 			$('#d2l-step-download progress')
 				.attr('max', data.length)
 				.attr('value', 0);
@@ -393,7 +391,7 @@
 
 			// For each enrolled person, get that student's grade value
 			for (var i = 0; i < data.length; i++) {
-				var person = data[i]['User'];
+				var person = data[i];
 				var gradesUrl = GradesExport.userContext.createUrlForAuthentication('/d2l/api/le/1.4/' + courseId + '/grades/' + GradesExport.gradesSpecifier['gradeObjectId'] + '/values/' + person['Identifier'], 'GET');
 
 				$.jsonp({
@@ -407,7 +405,7 @@
 		};
 
 		var courseId = specifier.orgUnitId;
-		var classlistUrl = GradesExport.userContext.createUrlForAuthentication('/d2l/api/lp/1.4/enrollments/orgUnits/' + courseId + '/users/', 'GET') + '&roleId=106';
+		var classlistUrl = GradesExport.userContext.createUrlForAuthentication('/d2l/api/le/1.4/' + courseId + '/classlist/', 'GET');
 
 		$.event.trigger('GEWillLoadGradesData');
 
@@ -465,7 +463,7 @@
 		}
 		
 		for (var i = 0; i < data.length; i++) {
-			var person = data[i]['User'];
+			var person = data[i];
 			if (!('Grades' in person)) {
 				continue;
 			}
