@@ -57,7 +57,6 @@
 		};
 		$('#d2l-steps h2').each(function(idx, val) {
 			var spinner = new Spinner(spinnerOpts).spin();
-			console.log(spinner);
 			$(val).append(spinner.el);
 		});
 	};
