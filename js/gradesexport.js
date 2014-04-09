@@ -160,6 +160,10 @@
 				if (--courses_counter == 0) {
 					// Populate the courses' select options
 					var courseOptions = $.map(courses, function(val, i) {
+						if (!val['OrgUnit']['IsActive']) {
+							continue;
+						}
+
 						if (val['Sections'].length == 0) {
 							return '<option value="' + val['OrgUnit']['Id'] 
 							       + '" data-code="' + val['OrgUnit']['Code']
