@@ -160,38 +160,38 @@
 				if (--courses_counter == 0) {
 					// Populate the courses' select options
 					var courseOptions = $.map(courses, function(val, i) {
-						if (!val['OrgUnit']['IsActive']) {
-							continue;
-						}
+						if (val['Access']['IsActive']) {
+							if (val['Sections'].length == 0) {
+								return '<option value="' + val['OrgUnit']['Id'] 
+								       + '" data-code="' + val['OrgUnit']['Code']
+								       + '">'
+								       + val['OrgUnit']['Name']
+								       + '</option>';	
+							} else {
+								var html = '<optgroup label="' + val['OrgUnit']['Name'] + '">';
+								html += $.map(val['Sections'], function(sec, i) {
+									var sectionId = sec['SectionId'];
+									if (sectionId in orgUnitsById) {
+										var sectionCode = orgUnitsById[sectionId]['OrgUnit']['Code'];
+										if (sectionCode.indexOf('_SEC', sectionCode.length - 4) !== -1) {
+											sectionCode = sectionCode.substring(0, sectionCode.length - 4);
+										}
 
-						if (val['Sections'].length == 0) {
-							return '<option value="' + val['OrgUnit']['Id'] 
-							       + '" data-code="' + val['OrgUnit']['Code']
-							       + '">'
-							       + val['OrgUnit']['Name']
-							       + '</option>';	
-						} else {
-							var html = '<optgroup label="' + val['OrgUnit']['Name'] + '">';
-							html += $.map(val['Sections'], function(sec, i) {
-								var sectionId = sec['SectionId'];
-								if (sectionId in orgUnitsById) {
-									var sectionCode = orgUnitsById[sectionId]['OrgUnit']['Code'];
-									if (sectionCode.indexOf('_SEC', sectionCode.length - 4) !== -1) {
-										sectionCode = sectionCode.substring(0, sectionCode.length - 4);
+										return '<option value="' + sectionId
+									       + '" data-code="' + sectionCode
+									       + '" data-course-id="' + val['OrgUnit']['Id']
+									       + '">'
+									       + sec['Name']
+									       + '</option>';
 									}
 
-									return '<option value="' + sectionId
-								       + '" data-code="' + sectionCode
-								       + '" data-course-id="' + val['OrgUnit']['Id']
-								       + '">'
-								       + sec['Name']
-								       + '</option>';
-								}
-
-								return '';
-							}).join('');
-							html += '</optgroup>';
-							return html;
+									return '';
+								}).join('');
+								html += '</optgroup>';
+								return html;
+							}
+						} else {
+							return '';
 						}
 					}).join('');
 
