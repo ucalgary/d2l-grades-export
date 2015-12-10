@@ -201,7 +201,21 @@
 // 						.end()
 						.append(courseOptions);
 
-					$(document.body).removeClass('d2l-wait-select');
+					if (data['PagingInfo']['HasMoreItems']) {
+						// if the user has more enrollments left to load, call myenrollments
+						// again with the provided Bookmark value
+						var url = GradesExport.userContext.createUrlForAuthentication('/d2l/api/lp/1.4/enrollments/myenrollments/', 'GET');
+						url += '&bookmark=' + data['PagingInfo']['Bookmark'];
+						
+						$.jsonp({
+							url: url,
+							callbackParameter: 'callback',
+							success: successHandler,
+							error: errorHandler
+						});
+					} else {
+						$(document.body).removeClass('d2l-wait-select');
+					}
 				}
 			}
 
