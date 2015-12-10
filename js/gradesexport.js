@@ -196,9 +196,9 @@
 					}).join('');
 
 					$('#d2l-courses')
-						.find('option')
-						.remove()
-						.end()
+// 						.find('option')
+// 						.remove()
+// 						.end()
 						.append(courseOptions);
 
 					$(document.body).removeClass('d2l-wait-select');
