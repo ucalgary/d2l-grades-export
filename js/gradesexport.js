@@ -204,7 +204,7 @@
 // 						.end()
 						.append(courseOptions);
 
-					if (data['PagingInfo']['HasMoreItems'] && successCounter < 4) {
+					if (data['PagingInfo']['HasMoreItems'] && successCounter < 24) {
 						// if the user has more enrollments left to load, call myenrollments
 						// again with the provided Bookmark value
 						var url = GradesExport.userContext.createUrlForAuthentication('/d2l/api/lp/1.4/enrollments/myenrollments/', 'GET');
