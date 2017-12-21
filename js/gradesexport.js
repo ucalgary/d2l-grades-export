@@ -90,7 +90,7 @@
 				$.event.trigger('GEDidAuthenticateUser', [GradesExport.userContext.userId]);
 			}
 
-			var url = GradesExport.userContext.createUrlForAuthentication('/d2l/api/lp/1.4/users/whoami', 'GET');
+			var url = GradesExport.userContext.createUrlForAuthentication('/d2l/api/lp/1.14/users/whoami', 'GET');
 
 			$.jsonp({
 				url: url,
@@ -145,7 +145,7 @@
 			}
 
 			// Store the returned items in GradesExport.orgData. This seems to be the only way
-			// to get section codes, as /d2l/api/lp/1.4/(orgUnitId)/sections/ does not return
+			// to get section codes, as /d2l/api/lp/1.14/(orgUnitId)/sections/ does not return
 			// section codes.
 			var orgUnitsById = GradesExport.orgData['orgUnitsById'];
 			$(data['Items']).each(function(index, unit) {
@@ -207,7 +207,7 @@
 					if (data['PagingInfo']['HasMoreItems'] && successCounter < 24) {
 						// if the user has more enrollments left to load, call myenrollments
 						// again with the provided Bookmark value
-						var url = GradesExport.userContext.createUrlForAuthentication('/d2l/api/lp/1.4/enrollments/myenrollments/', 'GET');
+						var url = GradesExport.userContext.createUrlForAuthentication('/d2l/api/lp/1.14/enrollments/myenrollments/', 'GET');
 						url += '&bookmark=' + data['PagingInfo']['Bookmark'];
 						
 						$.jsonp({
@@ -250,7 +250,7 @@
 				// For each course, determine if it has multiple section. If it does, present
 				// the course offering as an optgroup, and the sections as the actual options.
 				var course = courses[i];
-				var sectionsUrl = GradesExport.userContext.createUrlForAuthentication('/d2l/api/lp/1.4/' + course['OrgUnit']['Id'] + '/sections/', 'GET');
+				var sectionsUrl = GradesExport.userContext.createUrlForAuthentication('/d2l/api/lp/1.14/' + course['OrgUnit']['Id'] + '/sections/', 'GET');
 
 				$.jsonp({
 					url: sectionsUrl,
@@ -264,7 +264,7 @@
 
 		$(document.body).addClass('d2l-wait-select');
 
-		var url = GradesExport.userContext.createUrlForAuthentication('/d2l/api/lp/1.4/enrollments/myenrollments/', 'GET');
+		var url = GradesExport.userContext.createUrlForAuthentication('/d2l/api/lp/1.14/enrollments/myenrollments/', 'GET');
 
 		$.jsonp({
 			url: url,
@@ -306,7 +306,7 @@
 		$(document.body).addClass('d2l-wait-select');
 
 		var courseId = GradesExport.gradesSpecifier['orgUnitId'];
-		var url = GradesExport.userContext.createUrlForAuthentication('/d2l/api/le/1.4/' + courseId + '/grades/', 'GET');
+		var url = GradesExport.userContext.createUrlForAuthentication('/d2l/api/le/1.14/' + courseId + '/grades/', 'GET');
 
 		$.jsonp({
 			url: url,
@@ -346,7 +346,7 @@
 
 		var courseId = GradesExport.gradesSpecifier['orgUnitId'];
 		var gradeItemId = GradesExport.gradesSpecifier['gradeObjectId'];
-		var url = GradesExport.userContext.createUrlForAuthentication('/d2l/api/le/1.4/' + courseId + '/grades/' + gradeItemId, 'GET');
+		var url = GradesExport.userContext.createUrlForAuthentication('/d2l/api/le/1.14/' + courseId + '/grades/' + gradeItemId, 'GET');
 
 		$.jsonp({
 			url: url,
@@ -426,7 +426,7 @@
 			// For each enrolled person, get that student's grade value
 			for (var i = 0; i < data.length; i++) {
 				var person = data[i];
-				var gradesUrl = GradesExport.userContext.createUrlForAuthentication('/d2l/api/le/1.4/' + courseId + '/grades/' + GradesExport.gradesSpecifier['gradeObjectId'] + '/values/' + person['Identifier'], 'GET');
+				var gradesUrl = GradesExport.userContext.createUrlForAuthentication('/d2l/api/le/1.14/' + courseId + '/grades/' + GradesExport.gradesSpecifier['gradeObjectId'] + '/values/' + person['Identifier'], 'GET');
 
 				$.jsonp({
 					url: gradesUrl,
@@ -439,7 +439,7 @@
 		};
 
 		var courseId = specifier.orgUnitId;
-		var classlistUrl = GradesExport.userContext.createUrlForAuthentication('/d2l/api/le/1.4/' + courseId + '/classlist/', 'GET');
+		var classlistUrl = GradesExport.userContext.createUrlForAuthentication('/d2l/api/le/1.14/' + courseId + '/classlist/', 'GET');
 
 		$.event.trigger('GEWillLoadGradesData');
 
